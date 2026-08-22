@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head><title>User Guide</title></head>
+<body>
+  <h1>User Guide</h1>
+  <p>This guide covers advanced usage of the Test API.</p>
+  <h2>Configuration</h2>
+  <p>Configure the API with options:</p>
+  <pre><code>const api = new TestAPI({
+  timeout: 5000,
+  retries: 3
+});</code></pre>
+  <h2>Error Handling</h2>
+  <p>All methods throw TestAPIError on failure:</p>
+  <pre><code>try {
+  await api.call();
+} catch (err) {
+  if (err instanceof TestAPIError) {
+    console.error(err.message);
+  }
+}</code></pre>
+</body>
+</html>

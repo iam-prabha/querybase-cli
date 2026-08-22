@@ -1,0 +1,221 @@
+{
+  "version": 1,
+  "skills": {
+    "agent-onboarding": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/agent-onboarding/SKILL.md",
+      "computedHash": "8fca5649e5eabe8698537ded60415b90457820fac7b65974f0b16c6d2e2433a5"
+    },
+    "brand-listening": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/brand-listening/SKILL.md",
+      "computedHash": "4b6190a4eaae207ec2096095831d724333c9b684b4ebaa377cc16fb9db26204c"
+    },
+    "brd-browser-debug": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/brd-browser-debug/SKILL.md",
+      "computedHash": "8c39e44336a40b7b9eb24eea3fb8f923c2c6f4ffb17c838bfccc80799d3c758f"
+    },
+    "bright-data-best-practices": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/bright-data-best-practices/SKILL.md",
+      "computedHash": "9808437e08492efdd59948b5daf5cfee302b00dc3c432083170fb4dd54992f0d"
+    },
+    "bright-data-mcp": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/bright-data-mcp/SKILL.md",
+      "computedHash": "4c8bae0bae93b5b062633f06f9fb919ab6d31287a43ce844d8717c4bd6bd6759"
+    },
+    "brightdata-cli": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/brightdata-cli/SKILL.md",
+      "computedHash": "0f9aa9c91b4c3e9dc93d539f9b6c0432190c91ae2b645c0e44e9a6cea117fa10"
+    },
+    "brightdata-proxy": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/proxy/SKILL.md",
+      "computedHash": "4d8ee062fec0419660abab262f887b2d783f7040bdd6241900233e5fc97b1a9d"
+    },
+    "brightdata-sdk": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/python-sdk-best-practices/SKILL.md",
+      "computedHash": "ef3f4b717892a15fd1e515e7f14be41f271025e8e776d996cbdd09fa6dbd1aad"
+    },
+    "brightdata-sdk-js": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/js-sdk-best-practices/SKILL.md",
+      "computedHash": "b23f91fe61fdc6db7e30de127336a5a378e404c9b41318b4f77bf3db4ea6a850"
+    },
+    "competitive-intel": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/competitive-intel/SKILL.md",
+      "computedHash": "b8c7f2628fbc396bd45e738b347a581d2486aecaa51d299098446f29de8ea29a"
+    },
+    "data-feeds": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/data-feeds/SKILL.md",
+      "computedHash": "f23c1803ac9915886c48393fd89fd6c3bd8f65c7bf66925ba5c4a7f34eba6865"
+    },
+    "design-mirror": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/design-mirror/SKILL.md",
+      "computedHash": "af1c2ae844f6cfb437750f419c07cc1a50bcb2fcbc7552b51eb535b50a8ecd0d"
+    },
+    "discover-api": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/discover-api/SKILL.md",
+      "computedHash": "9ad18e95804fbe4a2b954aac88b192dd17f16a34eb725884f2321d64b15025c1"
+    },
+    "docker-development": {
+      "source": "netresearch/docker-development-skill",
+      "sourceType": "github",
+      "skillPath": "skills/docker-development/SKILL.md",
+      "computedHash": "8ff0bbdc670093395e0cde169d04df3a1c2e77503a46a06f6fd7a3fe676ca3e5"
+    },
+    "github-actions": {
+      "source": "callstackincubator/agent-skills",
+      "sourceType": "github",
+      "skillPath": "skills/github-actions/SKILL.md",
+      "computedHash": "c90128be4f55bc8b6dbdcba75ba2a540f3fb89ba91be1ccbe487e01ea70be122"
+    },
+    "github-actions-templates": {
+      "source": "wshobson/agents",
+      "sourceType": "github",
+      "skillPath": "plugins/cicd-automation/skills/github-actions-templates/SKILL.md",
+      "computedHash": "93e92fd674dea084628e95f9c48af806f9672ac08f815c84f85adedb55742c59"
+    },
+    "live-research": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/live-research/SKILL.md",
+      "computedHash": "068c990ef14014cf81a69ff5780d26cf05c745d60390de2c1344a356849f8acd"
+    },
+    "multi-stage-dockerfile": {
+      "source": "github/awesome-copilot",
+      "sourceType": "github",
+      "skillPath": "skills/multi-stage-dockerfile/SKILL.md",
+      "computedHash": "698bf93a84dae18fd7bd0b1d35c21427307fde78fbdf4624be9726f5f98189ca"
+    },
+    "price-comparison": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/price-comparison/SKILL.md",
+      "computedHash": "d59fa7382875820d998f8abfa55b9f587b0db0af90a0f2847281007c855a1565"
+    },
+    "qdrant-clients-sdk": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-clients-sdk/SKILL.md",
+      "computedHash": "58df9c656977780dd62db051ab81d84639acf0ead3cce162e765456fb3167c91"
+    },
+    "qdrant-deployment-options": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-deployment-options/SKILL.md",
+      "computedHash": "43af2c8563c91ddd4c0f2fd2ae8ede66d6b9c8a4421c2a16c13dfa4e934d00e6"
+    },
+    "qdrant-edge": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-edge/SKILL.md",
+      "computedHash": "50eb8f2c200d9a3c29433acd99190bcf2ef7da48fd7513d5c13571c7eec5d520"
+    },
+    "qdrant-model-migration": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-model-migration/SKILL.md",
+      "computedHash": "6a40dfbc656404be20db1bbc427f05a66d7e2a7d30ce18432a43d140843e426a"
+    },
+    "qdrant-monitoring": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-monitoring/SKILL.md",
+      "computedHash": "dede2036e50da8941eb9b3b8fb877d9e0afe831c63e33fced97ed8c26c15bc38"
+    },
+    "qdrant-multitenancy": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-multitenancy/SKILL.md",
+      "computedHash": "14ef395c4dc65b082d4c56d04a7fc4426a745fde486b8d8f93af078606d19ab7"
+    },
+    "qdrant-performance-optimization": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-performance-optimization/SKILL.md",
+      "computedHash": "f3ca732618ccdec40d84542ad3ce0474318f347a12f1f2f9ba5f17afcf30596d"
+    },
+    "qdrant-scaling": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-scaling/SKILL.md",
+      "computedHash": "dce9e0e1fb7765d4008776d5dec164f95cf81990a130f33f1116ee378b3757c7"
+    },
+    "qdrant-search-quality": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-search-quality/SKILL.md",
+      "computedHash": "c43616a66e39d127faf42fa2ed73a57b67f99e991a622c6ccc818b7d72a67204"
+    },
+    "qdrant-sizing": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-sizing/SKILL.md",
+      "computedHash": "5c962482fcb4d817a782d47eba85ea40aad70bf3203ae0b8997cd7daf9b62edf"
+    },
+    "qdrant-version-upgrade": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "skillPath": "skills/qdrant-version-upgrade/SKILL.md",
+      "computedHash": "94d76a68fd7efe22f5ef0e076bebe07e064c557fd37d6edd83116aabfd32909c"
+    },
+    "rag-pipeline": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/rag-pipeline/SKILL.md",
+      "computedHash": "fa89478bff83a143e30856792a42bc073c57b5f89a805a5912b10d4960e8d2fc"
+    },
+    "scrape": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/scrape/SKILL.md",
+      "computedHash": "265712feebdd22275af2a22e98a6636ea496464a8d3e0db081a439966db3067b"
+    },
+    "scraper-builder": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/scraper-builder/SKILL.md",
+      "computedHash": "06239dd031fd2719b20b2428c24cbf571dce1e499a7c5d8af3e4ab3e02f8fb05"
+    },
+    "scraper-studio": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/scraper-studio/SKILL.md",
+      "computedHash": "08acb1f7d2f8756d7571592bf296cd973806398f55c4efff5f2ab883c33df44d"
+    },
+    "search": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/search/SKILL.md",
+      "computedHash": "4d1592e91da2f71b22ea814f39d9de05776309cd88d0b8f7c1ae2122efdf85da"
+    },
+    "seo-audit": {
+      "source": "brightdata/skills",
+      "sourceType": "github",
+      "skillPath": "skills/seo-audit/SKILL.md",
+      "computedHash": "5222d265217726a74beffe15e499745b85583635d9811ca98ac5646224756f95"
+    }
+  }
+}

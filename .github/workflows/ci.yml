@@ -1,0 +1,178 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+    inputs:
+      promote_tag:
+        description: "Tag to promote to production (e.g., v1.2.3)"
+        required: true
+        type: string
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run tests
+        run: npm test
+
+      - name: Typecheck
+        run: npx tsc --noEmit
+
+  build:
+    needs: test
+    runs-on: ubuntu-latest
+    outputs:
+      image: ${{ steps.meta.outputs.tags }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup Node
+        uses: actions/setup-node@v4.1.0
+        with:
+          node-version: "24"
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Setup buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build
+        run: npm run build
+
+      - name: Build Docker image
+        run: |
+          docker build -t querybase:staging .
+          docker tag querybase:staging querybase
+
+      - name: Save image
+        run: docker save querybase:staging | gzip > querybase-staging.tar.gz
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: querybase-staging
+          path: querybase-staging.tar.gz
+
+      - name: Extract image metadata
+        id: meta
+        run: echo "tags=querybase:staging" >> "$GITHUB_OUTPUT"
+
+  staging:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
+    env:
+      POSTGRES_USER: querybase
+      POSTGRES_PASSWORD: querybase
+      POSTGRES_DB: querybase
+      DATABASE_URL: postgres://querybase:querybase@postgres:5432/querybase
+      QDRANT_URL: ${{ secrets.QDRANT_URL }}
+      QDRANT_API_KEY: ${{ secrets.QDRANT_API_KEY }}
+      BRIGHTDATA_API_KEY: ${{ secrets.BRIGHTDATA_API_KEY }}
+      BRIGHTDATA_WEB_UNLOCKER_ZONE: ${{ secrets.BRIGHTDATA_WEB_UNLOCKER_ZONE }}
+      EMBEDDING_BASE_URL: https://integrate.api.nvidia.com/v1
+      EMBEDDING_MODEL: nvidia/nv-embedqa-e5-v5
+      EMBEDDING_DIMENSIONS: 1024
+      EMBEDDING_INPUT_TYPE: passage
+      QUERYBASE_IMAGE: querybase
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Download image
+        uses: actions/download-artifact@v4.1.8
+        with:
+          name: querybase-staging
+          path: .
+
+      - name: Load image
+        run: docker load < querybase-staging.tar.gz
+
+      - name: Tag image for docker-compose
+        run: docker tag querybase:staging querybase
+
+      - name: Start staging stack (ci profile with Qdrant Cloud)
+        run: docker compose --profile ci up -d
+
+      - name: Wait for services
+        run: sleep 15
+
+      - name: Health check
+        run: docker compose run --rm querybase health
+
+      - name: Stop staging stack
+        run: docker compose down -v
+
+  promote:
+    needs: staging
+    if: github.event_name == 'workflow_dispatch'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+        with:
+          fetch-depth: 0
+
+      - name: Configure git
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Create tag
+        run: git tag ${{ github.event.inputs.promote_tag }}
+
+      - name: Push tag
+        run: git push origin ${{ github.event.inputs.promote_tag }}
+
+  publish:
+    needs: test
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4.2.2
+
+      - name: Setup buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3.3.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v6.12.0
+        with:
+          context: .
+          push: true
+          tags: |
+            ghcr.io/iam-prabha/querybase:${{ github.ref_name }}
+            ghcr.io/iam-prabha/querybase:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max

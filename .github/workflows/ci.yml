@@ -3,6 +3,7 @@ name: CI
 on:
   push:
     branches: [main]
+    tags: ["v*"]
   pull_request:
   workflow_dispatch:
     inputs:
@@ -109,6 +110,23 @@ jobs:
       - name: Tag image for docker-compose
         run: docker tag querybase:staging querybase
 
+      - name: Create .env for docker-compose
+        run: |
+          cat > .env <<EOF
+          POSTGRES_USER=querybase
+          POSTGRES_PASSWORD=querybase
+          POSTGRES_DB=querybase
+          DATABASE_URL=postgres://querybase:querybase@postgres:5432/querybase
+          QDRANT_URL=${{ secrets.QDRANT_URL }}
+          QDRANT_API_KEY=${{ secrets.QDRANT_API_KEY }}
+          BRIGHTDATA_API_KEY=${{ secrets.BRIGHTDATA_API_KEY }}
+          BRIGHTDATA_WEB_UNLOCKER_ZONE=${{ secrets.BRIGHTDATA_WEB_UNLOCKER_ZONE }}
+          EMBEDDING_BASE_URL=https://integrate.api.nvidia.com/v1
+          EMBEDDING_MODEL=nvidia/nv-embedqa-e5-v5
+          EMBEDDING_DIMENSIONS=1024
+          EMBEDDING_INPUT_TYPE=passage
+          EOF
+
       - name: Start staging stack (with Qdrant Cloud)
         run: docker compose --profile ci up -d
 
@@ -144,3 +162,39 @@ jobs:
 
       - name: Push tag
         run: git push origin ${{ github.event.inputs.promote_tag }}
+
+  publish:
+    needs: [staging, promote]
+    if: always() && (github.event_name == 'workflow_dispatch' || startsWith(github.ref, 'refs/tags/v'))
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          registry: docker.io
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Resolve the version tag
+        id: meta
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Build and push the image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: |
+            iamprabha010/querybase:${{ steps.meta.outputs.version }}
+            iamprabha010/querybase:latest
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
